@@ -20,21 +20,23 @@ def main():
         for title in titles:
             multimap[title].add(row['nconst'])
 
-    connections = set()
-
-    for key, value in multimap:
-        actors = list([actor for actor in value])
-
-        for i in range(0, len(actors) - 1):
-            for j in range(i + 1, len(actors)):
-                connections.add('%s\t%s\n' %(actors[i], actors[j]))
+    del df
 
     f = open(CONNECTIONS_FILE, 'w')
 
-    for connection in connections:
-        f.write(connection)
-    
+    k = 0
+    for key, value in multimap.items():
+        actors = list([actor for actor in value])
+        k += 1
+
+        print('%d / %d' %(k, len(multimap)))
+
+        for i in range(0, len(actors) - 1):
+            for j in range(i + 1, len(actors)):
+                f.write('%s\t%s\n' %(actors[i], actors[j]))
+
     f.close()
+
     print('FINISHED WRITING %d CONNECTIONS to data/edges.tsv')
 
 
