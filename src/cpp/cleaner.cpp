@@ -28,7 +28,7 @@ int main(int argc, char** argv)
     std::ofstream dest_file(destination.c_str());
     string next_line;
 
-    while (std::getline(fstream, next_line))
+    while (std::getline(file, next_line))
     {
         int32_t source;
         int32_t destination;
@@ -39,10 +39,7 @@ int main(int argc, char** argv)
         std::string source_str = to_four_byte_str(source);
         std::string destination_str = to_four_byte_str(destination);
 
-        if (dest_file.open())
-        {
-            dest_file << source_str << destination_str << '\n';
-        }
+        dest_file << source_str << destination_str << '\n';
     }
 
     file.close();
@@ -59,7 +56,7 @@ bool parse_line(std::string& line, int32_t* source, int32_t* destination)
     constexpr int DESTINATION_PARSE = 1;
     constexpr int EXIT_PARSE = 2;
     std::string number;
-    char* c = line.c_str();
+    const char* c = line.c_str();
 
     int32_t state = SOURCE_PARSE;
 
@@ -103,9 +100,9 @@ bool parse_line(std::string& line, int32_t* source, int32_t* destination)
 
 std::string to_four_byte_str(int32_t num)
 {
-    char* = (char*)&num;
+    char* num_str = (char*)&num;
 
-    char four_byte_str[5] = { num[0], num[1], num[2], num[3], '\0' };
+    char four_byte_str[5] = { num_str[0], num_str[1], num_str[2], num_str[3], '\0' };
     std::string four_bytes(four_byte_str);
 
     return four_bytes;
