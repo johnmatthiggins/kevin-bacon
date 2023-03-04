@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+
 # clean from previous
 rm *.gz
 
