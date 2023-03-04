@@ -1,4 +1,5 @@
 #include <fstream>
+#include <iostream>
 #include <string>
 #include <cstdio>
 #include <cstdint>
@@ -28,7 +29,8 @@ int main(int argc, char** argv)
     std::ofstream dest_file(destination.c_str());
     string next_line;
 
-    while (std::getline(file, next_line))
+    int i = 0;
+    while (std::getline(file, next_line, file.widen('\n')))
     {
         int32_t source;
         int32_t destination;
@@ -40,6 +42,9 @@ int main(int argc, char** argv)
         std::string destination_str = to_four_byte_str(destination);
 
         dest_file << source_str << destination_str << '\n';
+
+        std::cout << i << std::endl;
+        i++;
     }
 
     file.close();
